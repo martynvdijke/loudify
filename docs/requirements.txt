@@ -2,4 +2,4 @@ mkdocs==1.2.1
 mkdocs-material==7.1.8
 mkdocstrings==0.15.2
 mkdocs-autorefs==0.2.1
-mkdocs-click=0.4.0
+mkdocs-click==0.4.0
