@@ -2,5 +2,67 @@
 .vscode/*
 .idea/*
 
+dist/*
+venv/*
+
 docs/site
 docs/env
+
+# Created by https://www.toptal.com/developers/gitignore/api/vscode,pycharm
+# Edit at https://www.toptal.com/developers/gitignore?templates=vscode,pycharm
+
+##Tox files
+.tox/*
+
+##virtual env
+virtualenv/*
+
+update/*
+update/*
+loudify_broker/__pycache__/
+venv/*
+build/*
+.mypy_cache/*
+dist/*
+loudify/__pycache__/*
+.idea/
+
+*.pyc
+*.pyo
+
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/artifacts
+# .idea/compiler.xml
+# .idea/jarRepositories.xml
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+# *.iml
+# *.ipr
+
+# CMake
+cmake-build-*/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties

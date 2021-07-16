@@ -1,0 +1,27 @@
+[build-system]
+requires = ["flit_core >=2,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.metadata]
+module = "loudify"
+dist-name = "loudify"
+author = "Martyn van Dijke"
+author-email = "martijnvdijke600@gmail.com"
+home-page = "https://github.com/martynvdijke/loudify"
+requires=[
+    "flit_core>=2.2.0",
+    "coloredlogs",
+    "setuptools_scm",
+    "pyzmq"
+]
+classifiers = [ "License :: OSI Approved :: MIT License",]
+description-file = "README.md"
+
+[tool.black]
+line-length = 100
+
+[tool.flit.scripts]
+loudify-worker = "loudify:main_worker"
+loudify-broker = "loudify:main_broker"
+loudify-client = "loudify:main_client"
+loudify-cli = "loudify:main_cli"

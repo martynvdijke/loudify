@@ -1,6 +1,0 @@
-[submodule "loudify-broker"]
-	path = loudify-broker
-	url = https://github.com/martynvdijke/loudify-broker
-[submodule "loudify-worker"]
-	path = loudify-worker
-	url = https://github.com/martynvdijke/loudify-worker/
