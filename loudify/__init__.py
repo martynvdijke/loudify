@@ -53,7 +53,7 @@ def main_broker(argv=None) -> None:
 
 def main_client(argv=None) -> None:
     """
-    Main function of loudify worker.
+    Main function of loudify worker cli.
 
     Args:
         args: sys arguments
@@ -69,7 +69,7 @@ def main_client(argv=None) -> None:
 
 def main_cli(argv=None) -> None:
     """
-    Main function of loudify worker.
+    Main function of loudify cli interface.
 
     Args:
         args: sys arguments

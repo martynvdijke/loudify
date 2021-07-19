@@ -11,7 +11,7 @@ from . import broker_worker_api
 from . import broker_service_api
 
 # pylint: disable=R0902,E1101,R1705,R0912
-
+_logger = logging.getLogger(__name__)
 
 class Broker:
     """Broker API.
@@ -53,9 +53,6 @@ class Broker:
         self.socket.linger = 0
         self.poller = zmq.Poller()
         self.poller.register(self.socket, zmq.POLLIN)
-        logging.basicConfig(
-            format="%(asctime)s %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO
-        )
 
     # ---------------------------------------------------------------------
 
@@ -66,15 +63,20 @@ class Broker:
                 items = self.poller.poll(self.HEARTBEAT_INTERVAL)
             except KeyboardInterrupt:
                 break  # Interrupted
+            # if there is an request to the broker
             if items:
                 msg = self.socket.recv_multipart()
+
                 if self.verbose:
                     logging.info("I: received message:")
                     zhelpers.dump(msg)
 
+                # get the data from the packet
                 sender = msg.pop(0)
                 empty = msg.pop(0)
-                assert empty == b""
+                if empty !=  b'':
+                    logging.error("E: invalid empty space in message")
+
                 header = msg.pop(0)
 
                 if definitions.C_CLIENT == header:
@@ -107,16 +109,17 @@ class Broker:
 
     def process_worker(self, sender, msg):
         """Process message sent to us by a worker."""
-        assert len(msg) >= 1  # At least, command
+        if len(msg) <1 :
+            _logger.error("E: msg length is <1, invalid msg.")
 
         command = msg.pop(0)
-
         worker_ready = hexlify(sender) in self.workers
-
         worker = self.require_worker(sender)
 
         if definitions.W_READY == command:
-            assert len(msg) >= 1  # At least, a service name
+            if len(msg) < 1:
+                _logger.error("E: invalid service name.")
+
             service = msg.pop(0)
             # Not first command in session or Reserved service name
             if worker_ready or service.startswith(self.INTERNAL_SERVICE_PREFIX):
@@ -147,12 +150,13 @@ class Broker:
         elif definitions.W_DISCONNECT == command:
             self.delete_worker(worker, False)
         else:
-            logging.error("E: invalid message:")
+            _logger.error("E: invalid message:")
             zhelpers.dump(msg)
 
     def delete_worker(self, worker, disconnect):
         """Delete worker from all data structures, and deletes worker."""
-        assert worker is not None
+        if worker is None:
+            _logger.error("E: Worker is None, invalid msg.")
         if disconnect:
             self.send_to_worker(worker, definitions.W_DISCONNECT, None, None)
 
@@ -162,20 +166,22 @@ class Broker:
 
     def require_worker(self, address):
         """Find the worker (creates if necessary)."""
-        assert address is not None
+        if address is None:
+            _logger.error("E: adders is None, invalid msg.")
         identity = hexlify(address)
         worker = self.workers.get(identity)
         if worker is None:
             worker = broker_worker_api.Worker(identity, address, self.HEARTBEAT_EXPIRY)
             self.workers[identity] = worker
             if self.verbose:
-                logging.info("I: registering new worker: %s", identity)
+                _logger.info("I: registering new worker: %s", identity)
 
         return worker
 
     def require_service(self, name):
         """Locate the service (creates if necessary)."""
-        assert name is not None
+        if name is None:
+            _logger.error("E: name is None, invalid msg.")
         service = self.services.get(name)
         if service is None:
             service = broker_service_api.Service(name)
@@ -189,7 +195,7 @@ class Broker:
         We use a single socket for both clients and workers.
         """
         self.socket.bind(endpoint)
-        logging.info("I: MDP broker/0.1.1 is active at %s", endpoint)
+        _logger.info("I: MDP broker/0.1.1 is active at %s", endpoint)
 
     def service_internal(self, service, msg):
         """Handle internal service according to 8/MMI specification."""
@@ -219,7 +225,7 @@ class Broker:
         while self.waiting:
             worker = self.waiting[0]
             if worker.expiry < time.time():
-                logging.info("I: deleting expired worker: %s", worker.identity)
+                _logger.info("I: deleting expired worker: %s", worker.identity)
                 self.delete_worker(worker, False)
                 self.waiting.pop(0)
             else:
@@ -235,8 +241,10 @@ class Broker:
 
     def dispatch(self, service, msg):
         """Dispatch requests to waiting workers as possible."""
-        assert service is not None
-        if msg is not None:  # Queue message if any
+        if service is None:
+            _logger.error("E: service is None, msg invalid.")
+        # Queue message if any
+        if msg is not None: 
             service.requests.append(msg)
         self.purge_workers()
         while service.waiting and service.requests:
@@ -262,7 +270,7 @@ class Broker:
         msg = [worker.address, b"", definitions.W_WORKER, command] + msg
 
         if self.verbose:
-            logging.info("I: sending %r to worker", command)
+            _logger.info("I: sending %r to worker", command)
             zhelpers.dump(msg)
 
         self.socket.send_multipart(msg)

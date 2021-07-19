@@ -1,4 +1,4 @@
-"""Argument parser for all cli parts"""
+"""Argument parser for all cli parts."""
 import logging
 import sys
 import argparse

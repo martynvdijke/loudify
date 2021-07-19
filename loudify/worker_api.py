@@ -10,7 +10,7 @@ from . import zhelpers
 from . import definitions
 
 # pylint: disable=R0902,E1101,R1705,R0912
-
+_logger = logging.getLogger(__name__)
 
 class Worker:
     """Worker API.
@@ -45,9 +45,6 @@ class Worker:
         self.verbose = verbose
         self.ctx = zmq.Context()
         self.poller = zmq.Poller()
-        logging.basicConfig(
-            format="%(asctime)s %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO
-        )
         self.reconnect_to_broker()
 
     def reconnect_to_broker(self):
@@ -60,7 +57,7 @@ class Worker:
         self.worker.connect(self.broker)
         self.poller.register(self.worker, zmq.POLLIN)
         if self.verbose:
-            logging.info("I: connecting to broker at %s...", self.broker)
+            _logger.info("I: connecting to broker at %s...", self.broker)
 
         # Register service with broker
         self.send_to_broker(definitions.W_READY, self.service, [])
@@ -84,7 +81,7 @@ class Worker:
 
         msg = [b"", definitions.W_WORKER, command] + msg
         if self.verbose:
-            logging.info("I: sending %s to broker", command)
+            _logger.info("I: sending %s to broker", command)
             zhelpers.dump(msg)
         self.worker.send_multipart(msg)
 
@@ -94,7 +91,8 @@ class Worker:
         assert reply is not None or not self.expect_reply
 
         if reply is not None:
-            assert self.reply_to is not None
+            if self.reply_to is None:
+                _logger.error("E: reply address is None, invalid msg")
             reply = [self.reply_to, b""] + reply
             self.send_to_broker(definitions.W_REPLY, msg=reply)
 
@@ -110,7 +108,7 @@ class Worker:
             if items:
                 msg = self.worker.recv_multipart()
                 if self.verbose:
-                    logging.info("I: received message from broker: ")
+                    _logger.info("I: received message from broker: ")
                     zhelpers.dump(msg)
 
                 self.liveness = self.HEARTBEAT_LIVENESS
@@ -138,14 +136,14 @@ class Worker:
                 elif command == definitions.W_DISCONNECT:
                     self.reconnect_to_broker()
                 else:
-                    logging.error("E: invalid input message: ")
+                    _logger.error("E: invalid input message: ")
                     zhelpers.dump(msg)
 
             else:
                 self.liveness -= 1
                 if self.liveness == 0:
                     if self.verbose:
-                        logging.warning("W: disconnected from broker - retrying...")
+                        _logger.warning("W: disconnected from broker - retrying...")
                     try:
                         time.sleep(1e-3 * self.reconnect)
                     except KeyboardInterrupt:
@@ -157,7 +155,7 @@ class Worker:
                 self.send_to_broker(definitions.W_HEARTBEAT)
                 self.heartbeat_at = time.time() + 1e-3 * self.heartbeat
 
-        logging.warning("W: interrupt received, killing worker...")
+        _logger.warning("W: interrupt received, killing worker...")
         return None
 
     def destroy(self):
