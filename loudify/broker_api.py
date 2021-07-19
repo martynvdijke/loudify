@@ -244,7 +244,7 @@ class Broker:
         if service is None:
             _logger.error("E: service is None, msg invalid.")
         # Queue message if any
-        if msg is not None: 
+        if msg is not None:
             service.requests.append(msg)
         self.purge_workers()
         while service.waiting and service.requests:

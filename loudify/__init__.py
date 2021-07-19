@@ -24,7 +24,7 @@ def main_worker(argv=None) -> None:
     Main function of loudify worker.
 
     Args:
-        args: sys arguments
+        argv: sys arguments
 
     Returns:
         none
@@ -40,7 +40,7 @@ def main_broker(argv=None) -> None:
     Main function of loudify broker cli.
 
     Args:
-        args: sys arguments
+        argv: sys arguments
 
     Returns:
         none
@@ -56,7 +56,7 @@ def main_client(argv=None) -> None:
     Main function of loudify worker cli.
 
     Args:
-        args: sys arguments
+        argv: sys arguments
 
     Returns:
         none
@@ -72,7 +72,7 @@ def main_cli(argv=None) -> None:
     Main function of loudify cli interface.
 
     Args:
-        args: sys arguments
+        argv: sys arguments
 
     Returns:
         none

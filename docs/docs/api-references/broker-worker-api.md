@@ -1,3 +1,3 @@
 # Broker Worker API
 
-::: loudify_broker.worker_api
+::: loudify.worker_api

@@ -12,6 +12,7 @@ from . import definitions
 # pylint: disable=R0902,E1101,R1705,R0912
 _logger = logging.getLogger(__name__)
 
+
 class Worker:
     """Worker API.
 

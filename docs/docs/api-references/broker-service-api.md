@@ -1,3 +1,3 @@
 # Broker Service API
 
-::: loudify_broker.service_api
+::: loudify.service_api

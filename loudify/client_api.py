@@ -10,6 +10,8 @@ from . import zhelpers
 # pylint: disable=R0902,E1101,R1705,R0912
 
 _logger = logging.getLogger(__name__)
+
+
 class Client:
     """Majordomo Protocol Client API.
 
@@ -58,7 +60,7 @@ class Client:
         # Frame 1: "MDPCxy" (six bytes, MDP/Client x.y)
         # Frame 2: Service name (printable string)
 
-        request = [b"", definitions.MDP.C_CLIENT, service] + request
+        request = [b"", definitions.C_CLIENT, service] + request
         if self.verbose:
             _logger.warning("I: send request to '%s' service: ", service)
             zhelpers.dump(request)
@@ -74,7 +76,7 @@ class Client:
         # Frame 1: "MDPCxy" (six bytes, MDP/Client x.y)
         # Frame 2: Service name (printable string)
 
-        request = [b"", definitions.MDP.C_CLIENT, service] + request
+        request = [b"", definitions.C_CLIENT, service] + request
         if self.verbose:
             _logger.warning("I: send request to '%s' service: ", service)
             zhelpers.dump(request)
@@ -94,13 +96,14 @@ class Client:
                 _logger.info("I: received reply:")
                 zhelpers.dump(msg)
 
-            # Don't try to handle errors, just assert noisily
-            # assert len(msg) >= 4
-
-            # empty = msg.pop(0)
+            if len(msg) < 4:
+                _logger.error("E: client msg is to short %s", len(msg))
+            empty = msg.pop(0)
+            if empty != b'':
+                _logger.error("E: client empty msg is not empty %s", empty)
             header = msg.pop(0)
-            # print(header, empty)
-            assert definitions.MDP.C_CLIENT == header
+            if definitions.C_CLIENT != header:
+                _logger.error("E: Client header is incorrect %s", header)
 
             # service = msg.pop(0)
             return msg

@@ -18,6 +18,34 @@ def parse_args_worker(args):
 
     """
     parser = argparse.ArgumentParser(description="Loudify worker")
+
+    parser.add_argument(
+        "-p",
+        "--port",
+        dest="port",
+        type=int,
+        default=5555,
+        help="Specify the tcp port to bind to [default=%(default)r]",
+        required=True
+    )
+    parser.add_argument(
+        '-a',
+        '--address',
+        dest="address",
+        type=str,
+        default="localhost",
+        help="Specify the broker address to connect to[default=%(default)r]",
+        required=True
+    )
+    parser.add_argument(
+        '-s',
+        '--service',
+        dest="service",
+        type=str,
+        default="echo",
+        help="Specify the service the worker provides to[default=%(default)r]",
+        required=True
+    )
     # set logging level
     parser.add_argument(
         "-v",
@@ -49,6 +77,15 @@ def parse_args_broker(args):
 
     """
     parser = argparse.ArgumentParser(description="Loudify broker")
+    parser.add_argument(
+        "-p",
+        "--port",
+        dest="port",
+        type=int,
+        default=5555,
+        help="Specify the txp port to bind to [default=%(default)r]",
+        required=True
+    )
     # set logging level
     parser.add_argument(
         "-v",
@@ -80,6 +117,24 @@ def parse_args_client(args):
 
     """
     parser = argparse.ArgumentParser(description="Loudify client")
+    parser.add_argument(
+        "-p",
+        "--port",
+        dest="port",
+        type=int,
+        default=5555,
+        help="Specify the tcp port to bind to [default=%(default)r]",
+        required=True
+    )
+    parser.add_argument(
+        '-a',
+        '--address',
+        dest="address",
+        type=str,
+        default="localhost",
+        help="Specify the broker address to connect to[default=%(default)r]",
+        required=True
+    )
     # set logging level
     parser.add_argument(
         "-v",

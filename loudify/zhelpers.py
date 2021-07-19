@@ -10,7 +10,7 @@ import zmq
 
 
 def socket_set_hwm(socket, hwm=-1):
-    """libzmq 2/3/4 compatible sethwm."""
+    """Libzmq 2/3/4 compatible sethwm."""
     try:
         socket.sndhwm = socket.rcvhwm = hwm
     except AttributeError:
