@@ -7,8 +7,8 @@ import zmq
 
 from . import zhelpers
 from . import definitions
-from . import worker_api
-from . import service_api
+from . import broker_worker_api
+from . import broker_service_api
 
 # pylint: disable=R0902,E1101,R1705,R0912
 
@@ -166,7 +166,7 @@ class Broker:
         identity = hexlify(address)
         worker = self.workers.get(identity)
         if worker is None:
-            worker = worker_api.Worker(identity, address, self.HEARTBEAT_EXPIRY)
+            worker = broker_worker_api.Worker(identity, address, self.HEARTBEAT_EXPIRY)
             self.workers[identity] = worker
             if self.verbose:
                 logging.info("I: registering new worker: %s", identity)
@@ -178,7 +178,7 @@ class Broker:
         assert name is not None
         service = self.services.get(name)
         if service is None:
-            service = service_api.Service(name)
+            service = broker_service_api.Service(name)
             self.services[name] = service
 
         return service
