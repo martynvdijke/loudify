@@ -31,10 +31,12 @@
 </p>
 
 # Summary
+
 This project consist of three different parts namely the client that is running a GNU Radio flowgraph, the worker receiving the data and doing the actual demodulation process and the broker connecting the two together.
 This repo holds the code for all the parts, be sure to check out [gr-lora_sdr](https://github.com/martynvdijke/gr-lora_sdr) to see how this codes integrates into GNU Radio.
 
 ## Docs
+
 Documentation is built automatically on commits, and can be visited by going to [docs](https://loudify.readthedocs.io/en/latest/)
 
 ## Architecture
