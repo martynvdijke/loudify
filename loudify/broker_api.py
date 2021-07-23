@@ -74,8 +74,8 @@ class Broker:
                 # get the data from the packet
                 sender = msg.pop(0)
                 empty = msg.pop(0)
-                if empty !=  b'':
-                    logging.error("E: invalid empty space in message")
+                if empty != b'':
+                    _logger.error("E: invalid empty space in message")
 
                 header = msg.pop(0)
 
@@ -98,7 +98,8 @@ class Broker:
 
     def process_client(self, sender, msg):
         """Process a request coming from a client."""
-        assert len(msg) >= 2  # Service name + body
+        if len(msg) < 2:
+            _logger.warning("E: did not receive the right msg length from the client")
         service = msg.pop(0)
         # Set reply return address to client sender
         msg = [sender, b""] + msg
@@ -109,7 +110,7 @@ class Broker:
 
     def process_worker(self, sender, msg):
         """Process message sent to us by a worker."""
-        if len(msg) <1 :
+        if len(msg) < 1:
             _logger.error("E: msg length is <1, invalid msg.")
 
         command = msg.pop(0)
@@ -150,7 +151,7 @@ class Broker:
         elif definitions.W_DISCONNECT == command:
             self.delete_worker(worker, False)
         else:
-            _logger.error("E: invalid message:")
+            _logger.error("E: invalid message command: %s", command)
             zhelpers.dump(msg)
 
     def delete_worker(self, worker, disconnect):

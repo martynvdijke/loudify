@@ -29,7 +29,8 @@ def main(argv=None):
         if request is None:
             break  # Worker was interrupted
         reply = request  # Echo is complex... :-)
-
+        if verbose:
+            print(reply)
 
 if __name__ == "__main__":
     main()

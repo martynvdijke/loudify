@@ -88,14 +88,20 @@ class Worker:
 
     def recv(self, reply=None):
         """Send reply, if any, to broker and wait for next request."""
-        # Format and send the reply if we were provided one
-        assert reply is not None or not self.expect_reply
 
-        if reply is not None:
-            if self.reply_to is None:
-                _logger.error("E: reply address is None, invalid msg")
-            reply = [self.reply_to, b""] + reply
-            self.send_to_broker(definitions.W_REPLY, msg=reply)
+        try:
+            # Format and send the reply if we were provided one
+            if reply is None or self.expect_reply:
+                _logger.warning("E: Reply is wrong")
+
+
+            if reply is not None:
+                if self.reply_to is None:
+                    _logger.error("E: reply address is None, invalid msg")
+                reply = [self.reply_to, b""] + reply
+                self.send_to_broker(definitions.W_REPLY, msg=reply)
+        except KeyboardInterrupt:
+            exit(0)
 
         self.expect_reply = True
 
@@ -105,22 +111,25 @@ class Worker:
                 items = self.poller.poll(self.timeout)
             except KeyboardInterrupt:
                 break  # Interrupted
-
             if items:
                 msg = self.worker.recv_multipart()
                 if self.verbose:
                     _logger.info("I: received message from broker: ")
                     zhelpers.dump(msg)
 
+
                 self.liveness = self.HEARTBEAT_LIVENESS
-                # Don't try to handle errors, just assert noisily
-                assert len(msg) >= 3
+                    # Don't try to handle errors, just assert noisily
+                if len(msg) < 3:
+                    _logger.warning("E: msg length is invalid")
 
                 empty = msg.pop(0)
-                assert empty == b""
+                if empty != b'':
+                    logging.error("E: invalid empty space in message")
 
                 header = msg.pop(0)
-                assert header == definitions.W_WORKER
+                if header != definitions.W_WORKER:
+                    _logger.warning("E: header does not eqaul worker definition")
 
                 command = msg.pop(0)
                 if command == definitions.W_REQUEST:
@@ -129,7 +138,8 @@ class Worker:
                     self.reply_to = msg.pop(0)
                     # pop empty
                     empty = msg.pop(0)
-                    assert empty == b""
+                    if empty != b'':
+                        _logger.warning("E: empty space in msg is not empty, invalid msg")
                     return msg  # We have a request to process
                 elif command == definitions.W_HEARTBEAT:
                     # Do nothing for heartbeats

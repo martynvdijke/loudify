@@ -10,7 +10,8 @@ def main(argv=None):
     Main function for cli client.
 
     Args:
-        Addres:
+        Addres: broker addres to connect to
+        Port: port to connect to
     Returns:
         None
     """

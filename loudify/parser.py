@@ -165,7 +165,25 @@ def parse_args_cli(args):
         list of supported arguments
 
     """
-    parser = argparse.ArgumentParser(description="Loudify cli")
+    parser = argparse.ArgumentParser(description="Loudify client")
+    parser.add_argument(
+        "-p",
+        "--port",
+        dest="port",
+        type=int,
+        default=5555,
+        help="Specify the tcp port to bind to [default=%(default)r]",
+        required=True
+    )
+    parser.add_argument(
+        '-a',
+        '--address',
+        dest="address",
+        type=str,
+        default="localhost",
+        help="Specify the broker address to connect to[default=%(default)r]",
+        required=True
+    )
     # set logging level
     parser.add_argument(
         "-v",

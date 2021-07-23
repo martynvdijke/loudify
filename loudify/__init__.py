@@ -7,6 +7,7 @@ from . import broker
 from . import parser
 from . import worker
 from . import client
+from . import cli
 
 __author__ = "Martyn van Dijke"
 __copyright__ = "Martyn van Dijke"
@@ -63,7 +64,7 @@ def main_client(argv=None) -> None:
     """
     args = parser.parse_args_client(argv)
     parser.setup_logging(args.loglevel)
-    _logger.info("Started loudify worker")
+    _logger.info("Started loudify client")
     client.main()
 
 
@@ -79,5 +80,5 @@ def main_cli(argv=None) -> None:
     """
     args = parser.parse_args_cli(argv)
     parser.setup_logging(args.loglevel)
-    _logger.info("Started loudify worker")
-    worker.main()
+    _logger.info("Started loudify cli interface.")
+    cli.main()
