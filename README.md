@@ -39,12 +39,40 @@ This repo holds the code for all the parts, be sure to check out [gr-lora_sdr](h
 
 Documentation is built automatically on commits, and can be visited by going to [docs](https://loudify.readthedocs.io/en/latest/)
 
+## Why?
+
+This project together with the GNU Radio code located in [gr-lora_sdr](https://github.com/martynvdijke/gr-lora_sdr) is part of my graduation project which is called a Centralized Radio Acces Network gateway for LoRa.
+Its purpose is to research if it is possible to be able to aggregate LoRa packets originating from different LoRa gateways by making a central point (aka the broker) that all gateways can connect to. The overall high level idea is to let LoRa gateways share information on the reception of their signals.
+
+## Installing
+
+Installing the project can be done in two ways, by installing the normal PyPi release
+
+```sh
+pip install loudify
+```
+
+Or by installing directly from the repo either by doing pip git install
+
+```sh
+pip install git+https://github.com/martynvdijke/loudify.git
+```
+
+Or by cloning the repo and running flit install
+
+```sh
+pip install flit
+git clone https://github.com/martynvdijke/loudify
+cd loudify
+flit install
+```
+
 ## Architecture
 
+For a more detailed overview of the entire architecture and to be able to see how everything is connected visit [architecture](docs/architecture.md)
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-Make sure to add or update tests as appropriate.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Make sure to add or update tests as appropriate.
 
 ## [Changelog](CHANGELOG.md)
