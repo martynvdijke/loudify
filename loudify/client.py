@@ -1,7 +1,6 @@
-"""Client cli."""
+"""Async Client cli."""
 
-import sys
-from . import client_api
+from . import client_async_api
 from . import parser
 
 
@@ -21,7 +20,7 @@ def main(argv=None):
     if args.loglevel == 10:
         verbose = True
 
-    client = client_api.Client("tcp://"+args.address+":"+str(args.port), verbose)
+    client = client_async_api.Client("tcp://" + args.address + ":" + str(args.port), verbose)
 
     requests = 10
 

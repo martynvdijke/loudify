@@ -13,6 +13,7 @@ from . import broker_service_api
 # pylint: disable=R0902,E1101,R1705,R0912
 _logger = logging.getLogger(__name__)
 
+
 class Broker:
     """Broker API.
 
@@ -84,7 +85,7 @@ class Broker:
                 elif definitions.W_WORKER == header:
                     self.process_worker(sender, msg)
                 else:
-                    logging.error("E: invalid message:")
+                    logging.error("E: invalid message: %s", header)
                     zhelpers.dump(msg)
 
             self.purge_workers()
@@ -196,11 +197,12 @@ class Broker:
         We use a single socket for both clients and workers.
         """
         self.socket.bind(endpoint)
-        _logger.info("I: MDP broker/0.1.1 is active at %s", endpoint)
+        _logger.info("I: broker/0.1.1 is active at %s", endpoint)
 
     def service_internal(self, service, msg):
         """Handle internal service according to 8/MMI specification."""
         returncode = b"501"
+        _logger.debug("D : Handling internal request.")
         if service == b"mmi.service":
             name = msg[-1]
             returncode = b"200" if name in self.services else b"404"

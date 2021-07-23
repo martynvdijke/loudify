@@ -1,7 +1,6 @@
 """Client API."""
 
 import logging
-
 import zmq
 
 from . import definitions
@@ -13,7 +12,7 @@ _logger = logging.getLogger(__name__)
 
 
 class Client:
-    """Majordomo Protocol Client API.
+    """Majordomo Protocol Client API Synchronous version.
 
     Implements the MDP/Worker spec at http:#rfc.zeromq.org/spec:7.
     """
@@ -60,25 +59,9 @@ class Client:
         # Frame 1: "MDPCxy" (six bytes, MDP/Client x.y)
         # Frame 2: Service name (printable string)
 
-        request = [b"", definitions.C_CLIENT, service] + request
+        request = [b'', definitions.C_CLIENT, service] + request
         if self.verbose:
-            _logger.warning("I: send request to '%s' service: ", service)
-            zhelpers.dump(request)
-        self.client.send_multipart(request)
-
-    def send_large(self, service, request):
-        """Send large request to broker."""
-        if not isinstance(request, list):
-            request = [request]
-
-        # Prefix request with protocol frames
-        # Frame 0: empty (REQ emulation)
-        # Frame 1: "MDPCxy" (six bytes, MDP/Client x.y)
-        # Frame 2: Service name (printable string)
-
-        request = [b"", definitions.C_CLIENT, service] + request
-        if self.verbose:
-            _logger.warning("I: send request to '%s' service: ", service)
+            _logger.info("I: send request to '%s' service: ", service)
             zhelpers.dump(request)
         self.client.send_multipart(request)
 

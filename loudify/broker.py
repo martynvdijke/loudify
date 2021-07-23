@@ -1,8 +1,8 @@
 """Broker implementation."""
 
-import sys
 from . import broker_api
 from . import parser
+
 
 def main(argv=None):
     """Create and start new broker."""
@@ -13,9 +13,7 @@ def main(argv=None):
     verbose = False
     if args.loglevel == 10:
         verbose = True
-
-    if args.loglevel == 10:
-        verbose = True
+    print(verbose)
     broker = broker_api.Broker(verbose)
-    broker.bind("tcp://*:"+str(args.port))
+    broker.bind("tcp://*:" + str(args.port))
     broker.mediate()

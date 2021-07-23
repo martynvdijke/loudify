@@ -17,6 +17,6 @@
 
 ## Summary
 
- Welcome to the loudify docs
+Welcome to the loudify docs
 
  

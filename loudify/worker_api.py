@@ -91,9 +91,8 @@ class Worker:
 
         try:
             # Format and send the reply if we were provided one
-            if reply is None or self.expect_reply:
-                _logger.warning("E: Reply is wrong")
-
+            if reply is None or reply is self.expect_reply:
+                _logger.warning("E: Reply is wrong %s", reply)
 
             if reply is not None:
                 if self.reply_to is None:
@@ -117,9 +116,8 @@ class Worker:
                     _logger.info("I: received message from broker: ")
                     zhelpers.dump(msg)
 
-
                 self.liveness = self.HEARTBEAT_LIVENESS
-                    # Don't try to handle errors, just assert noisily
+                # Don't try to handle errors, just assert noisily
                 if len(msg) < 3:
                     _logger.warning("E: msg length is invalid")
 
