@@ -4,7 +4,7 @@
 import sys
 from . import worker_api
 from . import parser
-
+from . import zhelpers
 
 def main(argv=None):
     """
@@ -30,7 +30,7 @@ def main(argv=None):
             break  # Worker was interrupted
         reply = request  # Echo is complex... :-)
         if verbose:
-            print(reply)
+            zhelpers.dump(reply)
 
 if __name__ == "__main__":
     main()

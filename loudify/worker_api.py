@@ -40,7 +40,14 @@ class Worker:
     reply_to = None
 
     def __init__(self, broker, service, verbose=False):
-        """Initializer the Worker class."""
+        """
+        Initializer the Worker class.
+
+        @param broker:
+        @param service:
+        @param verbose:
+        """
+
         self.broker = broker
         self.service = service
         self.verbose = verbose
@@ -68,10 +75,17 @@ class Worker:
         self.heartbeat_at = time.time() + 1e-3 * self.heartbeat
 
     def send_to_broker(self, command, option=None, msg=None):
-        """Send message to broker.
+        """
+        Send message to broker.
 
         If no msg is provided, creates one internally
+
+        @param command:
+        @param option:
+        @param msg:
+        @return:
         """
+
         if msg is None:
             msg = []
         elif not isinstance(msg, list):
@@ -87,7 +101,12 @@ class Worker:
         self.worker.send_multipart(msg)
 
     def recv(self, reply=None):
-        """Send reply, if any, to broker and wait for next request."""
+        """
+        Send reply, if any, to broker and wait for next request.
+
+        @param reply:
+        @return:
+        """
 
         try:
             # Format and send the reply if we were provided one

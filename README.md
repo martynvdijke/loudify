@@ -75,4 +75,4 @@ For a more detailed overview of the entire architecture and to be able to see ho
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Make sure to add or update tests as appropriate.
 
-## [Changelog](CHANGELOG.md)
+## [Changelog](docs/changelog.md.md)

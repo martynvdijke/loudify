@@ -32,7 +32,7 @@ def main_worker(argv=None) -> None:
     """
     args = parser.parse_args_worker(argv)
     parser.setup_logging(args.loglevel)
-    _logger.info("Started loudify worker")
+    _logger.info("Started cli loudify worker version %s.", __version__)
     worker.main()
 
 
@@ -48,7 +48,7 @@ def main_broker(argv=None) -> None:
     """
     args = parser.parse_args_broker(argv)
     parser.setup_logging(args.loglevel)
-    _logger.info("Started loudify broker")
+    _logger.info("Started loudify broker version %s.", __version__)
     broker.main()
 
 
@@ -64,7 +64,7 @@ def main_client(argv=None) -> None:
     """
     args = parser.parse_args_client(argv)
     parser.setup_logging(args.loglevel)
-    _logger.info("Started loudify client")
+    _logger.info("Started loudify client version %s.", __version__)
     client.main()
 
 
@@ -80,5 +80,5 @@ def main_cli(argv=None) -> None:
     """
     args = parser.parse_args_cli(argv)
     parser.setup_logging(args.loglevel)
-    _logger.info("Started loudify cli interface.")
+    _logger.info("Started loudify cli interface version %s.", __version__)
     cli.main()

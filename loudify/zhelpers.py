@@ -26,6 +26,10 @@ def dump(msg_or_socket):
         msg = msg_or_socket
     print("----------------------------------------")
     for part in msg:
+
+        if len(part) > 1000:
+            print("[%03d]" % len(part))
+            continue
         print("[%03d]" % len(part), end=" ")
         try:
             print(part.decode("ascii"))

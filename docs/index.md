@@ -1,16 +1,17 @@
 # Welcome to Loudify docs
 
 [![Documentation Status](https://readthedocs.org/projects/loudify/badge/?version=latest)](https://loudify.readthedocs.io/en/latest/?badge=latest)
-![PyPI](https://img.shields.io/pypi/v/loudify-broker)
-![PyPI - Downloads](https://img.shields.io/pypi/dw/loudify-broker)
-![PyPI](https://img.shields.io/pypi/v/loudify-worker)
-![PyPI - Downloads](https://img.shields.io/pypi/dw/loudify-worker)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8cd2efe67f7b480bb74ebbccfb860146)](https://www.codacy.com/gh/martynvdijke/loudify/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=martynvdijke/loudify&amp;utm_campaign=Badge_Grade)
+![PyPI](https://img.shields.io/pypi/v/loudify)
+[![GitHub license](https://img.shields.io/github/license/martynvdijke/loudify-worker)](https://github.com/martynvdijke/loudify/blob/dev/LICENSE)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Downloads](https://static.pepy.tech/personalized-badge/loudify?period=total&units=international_system&left_color=black&right_color=grey&left_text=Downloads)](https://pepy.tech/project/loudify)
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
   <a href="https://github.com/martynvdijke/loudify">
-    <img src="pictures/broker.png" alt="Logo">
+    <img src="pictures/loudify.png" alt="Logo">
   </a>
 
   <h3 align="center">LoRa cloudified</h3>
@@ -56,4 +57,4 @@ cd loudify
 flit install
 ```
 
-## [Changelog](CHANGELOG.md)
+## [Changelog](changelog.md)

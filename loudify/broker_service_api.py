@@ -11,7 +11,11 @@ class Service:
     waiting = None  # List of waiting workers
 
     def __init__(self, name):
-        """Initialize a service."""
+        """
+        Initialize a service.
+
+        @param name: service name
+        """
         self.name = name
         self.requests = []
         self.waiting = []

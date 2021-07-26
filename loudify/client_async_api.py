@@ -25,11 +25,11 @@ class Client:
     verbose = False
 
     def __init__(self, broker, verbose=False):
-        """Initialize the client.
+        """
+        Initialize the client.
 
-        Args:
-            broker ([type]): addres of the broker to connect to
-            verbose (bool, optional): verbose logging, defaults to False.
+        @param broker: address of the broker to connect to
+        @param verbose: verbose logging, defaults to False.
         """
         self.broker = broker
         self.verbose = verbose
@@ -49,8 +49,15 @@ class Client:
         if self.verbose:
             _logger.info("I: connecting to broker at %s...", self.broker)
 
-    def send(self, service, request):
-        """Send request to broker."""
+    def send(self, service, request, flowgraph_vars):
+        """
+        Send request to broker.
+
+        @param service: service that is requested
+        @param request: input data for the request
+        @param flowgraph_vars: dict containing all flowgraph values
+        @return:
+        """
         if not isinstance(request, list):
             request = [request]
 
@@ -59,7 +66,7 @@ class Client:
         # Frame 1: "MDPCxy" (six bytes, MDP/Client x.y)
         # Frame 2: Service name (printable string)
 
-        request = [b'', definitions.C_CLIENT, service] + request
+        request = [b'', definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
         if self.verbose:
             _logger.info("I: send request to '%s' service: ", service)
             zhelpers.dump(request)

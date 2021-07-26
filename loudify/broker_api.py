@@ -43,7 +43,12 @@ class Broker:
     # ---------------------------------------------------------------------
 
     def __init__(self, verbose=False):
-        """Initialize the broker state."""
+        """
+        Initialize the broker state.
+
+        @param verbose: boolean variable to turn on more verbose logging
+        """
+
         self.verbose = verbose
         self.services = {}
         self.workers = {}
@@ -98,7 +103,14 @@ class Broker:
         self.ctx.destroy(0)
 
     def process_client(self, sender, msg):
-        """Process a request coming from a client."""
+        """
+        Process a request coming from a client.
+
+        @param sender:
+        @param msg:
+        @return:
+        """
+
         if len(msg) < 2:
             _logger.warning("E: did not receive the right msg length from the client")
         service = msg.pop(0)
@@ -110,7 +122,14 @@ class Broker:
             self.dispatch(self.require_service(service), msg)
 
     def process_worker(self, sender, msg):
-        """Process message sent to us by a worker."""
+        """
+        Process message sent to us by a worker.
+
+        @param sender:
+        @param msg:
+        @return:
+        """
+
         if len(msg) < 1:
             _logger.error("E: msg length is <1, invalid msg.")
 
@@ -156,7 +175,14 @@ class Broker:
             zhelpers.dump(msg)
 
     def delete_worker(self, worker, disconnect):
-        """Delete worker from all data structures, and deletes worker."""
+        """
+        Delete worker from all data structures, and deletes worker.
+
+        @param worker:
+        @param disconnect:
+        @return:
+        """
+
         if worker is None:
             _logger.error("E: Worker is None, invalid msg.")
         if disconnect:
@@ -167,7 +193,13 @@ class Broker:
         self.workers.pop(worker.identity)
 
     def require_worker(self, address):
-        """Find the worker (creates if necessary)."""
+        """
+        Find the worker (creates if necessary).
+
+        @param address:
+        @return:
+        """
+
         if address is None:
             _logger.error("E: adders is None, invalid msg.")
         identity = hexlify(address)
@@ -181,7 +213,13 @@ class Broker:
         return worker
 
     def require_service(self, name):
-        """Locate the service (creates if necessary)."""
+        """
+        Locate the service (creates if necessary).
+
+        @param name:
+        @return:
+        """
+
         if name is None:
             _logger.error("E: name is None, invalid msg.")
         service = self.services.get(name)
@@ -192,15 +230,27 @@ class Broker:
         return service
 
     def bind(self, endpoint):
-        """Bind broker to endpoint, can call this multiple times.
+        """
+        Bind broker to endpoint, can call this multiple times.
 
         We use a single socket for both clients and workers.
+
+        @param endpoint:
+        @return:
         """
+
         self.socket.bind(endpoint)
         _logger.info("I: broker/0.1.1 is active at %s", endpoint)
 
     def service_internal(self, service, msg):
-        """Handle internal service according to 8/MMI specification."""
+        """
+        Handle internal service according to 8/MMI specification.
+
+        @param service:
+        @param msg:
+        @return:
+        """
+
         returncode = b"501"
         _logger.debug("D : Handling internal request.")
         if service == b"mmi.service":
@@ -235,7 +285,13 @@ class Broker:
                 break
 
     def worker_waiting(self, worker):
-        """Worker is now waiting for work."""
+        """
+        Worker is now waiting for work.
+
+        @param worker:
+        @return:
+        """
+
         # Queue to broker and service waiting lists
         self.waiting.append(worker)
         worker.service.waiting.append(worker)
@@ -243,7 +299,14 @@ class Broker:
         self.dispatch(worker.service, None)
 
     def dispatch(self, service, msg):
-        """Dispatch requests to waiting workers as possible."""
+        """
+        Dispatch requests to waiting workers as possible.
+
+        @param service:
+        @param msg:
+        @return:
+        """
+
         if service is None:
             _logger.error("E: service is None, msg invalid.")
         # Queue message if any
@@ -257,10 +320,18 @@ class Broker:
             self.send_to_worker(worker, definitions.W_REQUEST, None, msg)
 
     def send_to_worker(self, worker, command, option, msg=None):
-        """Send message to worker.
+        """
+        Send message to worker.
 
         If message is provided, sends that message.
+
+        @param worker:
+        @param command:
+        @param option:
+        @param msg:
+        @return:
         """
+
         if msg is None:
             msg = []
         elif not isinstance(msg, list):

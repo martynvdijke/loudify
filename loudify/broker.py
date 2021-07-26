@@ -13,7 +13,6 @@ def main(argv=None):
     verbose = False
     if args.loglevel == 10:
         verbose = True
-    print(verbose)
     broker = broker_api.Broker(verbose)
     broker.bind("tcp://*:" + str(args.port))
     broker.mediate()

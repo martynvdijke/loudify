@@ -135,6 +135,16 @@ def parse_args_client(args):
         help="Specify the broker address to connect to[default=%(default)r]",
         required=True
     )
+
+    parser.add_argument(
+        '-m',
+        '--modus',
+        dest="address",
+        type=str,
+        default="localhost",
+        help="Specify the broker address to connect to[default=%(default)r]",
+        required=True
+    )
     # set logging level
     parser.add_argument(
         "-v",
