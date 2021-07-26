@@ -1,7 +1,5 @@
 """Actual Loudify worker."""
 
-
-import sys
 from . import worker_api
 from . import parser
 from . import zhelpers

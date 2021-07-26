@@ -1,6 +1,5 @@
 """CLi interface to connect to the broker."""
 
-import sys
 from . import client_sync_api
 from . import parser
 

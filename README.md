@@ -39,7 +39,7 @@ This repo holds the code for all the parts, be sure to check out [gr-lora_sdr](h
 
 Documentation is built automatically on commits, and can be visited by going to [docs](https://loudify.readthedocs.io/en/latest/)
 
-## Why?
+## Why
 
 This project together with the GNU Radio code located in [gr-lora_sdr](https://github.com/martynvdijke/gr-lora_sdr) is part of my graduation project which is called a Centralized Radio Acces Network gateway for LoRa.
 Its purpose is to research if it is possible to be able to aggregate LoRa packets originating from different LoRa gateways by making a central point (aka the broker) that all gateways can connect to. The overall high level idea is to let LoRa gateways share information on the reception of their signals.

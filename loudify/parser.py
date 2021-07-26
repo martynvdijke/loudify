@@ -135,15 +135,22 @@ def parse_args_client(args):
         help="Specify the broker address to connect to[default=%(default)r]",
         required=True
     )
-
     parser.add_argument(
         '-m',
-        '--modus',
-        dest="address",
-        type=str,
-        default="localhost",
-        help="Specify the broker address to connect to[default=%(default)r]",
+        '--mode',
+        dest="mode",
+        choices=("sync", "async"),
+        default="sync",
+        help="Specify the mode to use [default=%(default)r]",
         required=True
+    )
+    parser.add_argument(
+        "-n",
+        "--requests",
+        dest="requests",
+        type=int,
+        default=2,
+        help="Specify the number of request to be made [default=%(default)r]"
     )
     # set logging level
     parser.add_argument(
