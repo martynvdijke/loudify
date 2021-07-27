@@ -49,7 +49,7 @@ class Client:
         if self.verbose:
             _logger.info("I: connecting to broker at %s...", self.broker)
 
-    def send(self, service, request, flowgraph_vars):
+    def send(self, service, request, flowgraph_vars=None):
         """
         Send request to broker and get reply by hook or crook.
 
@@ -64,7 +64,15 @@ class Client:
 
         if not isinstance(request, list):
             request = [request]
-        request = [definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
+
+        print(request)
+        print(type(request))
+        print(flowgraph_vars)
+        if flowgraph_vars is not None:
+            request = [definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
+        else:
+            request = [definitions.C_CLIENT, service] + request
+
         if self.verbose:
             _logger.info("I: send request to '%s' service: ", service)
             zhelpers.dump(request)

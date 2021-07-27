@@ -30,19 +30,18 @@ def main(argv=None):
     requests = args.requests
 
     request = b"Hello world"
-    flowgraph_vars= {'sf': 7, 'samp_rate': 250000, 'bw': 250000, 'has_crc': False, 'pay_len': 64, 'cr': 4, 'impl_head': True, 'sync_words': [
-        8, 16]}
+
     if args.mode == "sync":
         for req in range(requests):
-            reply = client.send(b"echo",  request, flowgraph_vars)
+            reply = client.send(b"echo",  request)
             if reply:
-                _logger.debug("D: Got reply back from broker", reply[0])
+                _logger.debug("D: Got reply back from broker %s", reply[0])
             else:
                 _logger.warning("E: no response from broker, make sure it's running.")
     else:
         for req in range(requests):
             try:
-                client.send(b"echo",  request, flowgraph_vars)
+                client.send(b"echo",  request)
             except KeyboardInterrupt:
                 print("send interrupted, aborting")
                 return

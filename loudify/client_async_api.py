@@ -49,7 +49,7 @@ class Client:
         if self.verbose:
             _logger.info("I: connecting to broker at %s...", self.broker)
 
-    def send(self, service, request, flowgraph_vars):
+    def send(self, service, request, **flowgraph_vars):
         """
         Send request to broker.
 
@@ -65,8 +65,11 @@ class Client:
         # Frame 0: empty (REQ emulation)
         # Frame 1: "MDPCxy" (six bytes, MDP/Client x.y)
         # Frame 2: Service name (printable string)
+        if flowgraph_vars:
+            request = [b'', definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
+        else:
+            request = [b'', definitions.C_CLIENT, service] + request
 
-        request = [b'', definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
         if self.verbose:
             _logger.info("I: send request to '%s' service: ", service)
             zhelpers.dump(request)
