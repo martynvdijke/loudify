@@ -27,13 +27,13 @@ class Worker:
     worker = None  # Socket to broker
     heartbeat_at = 0  # When to send HEARTBEAT (relative to time.time(), so in seconds)
     liveness = 0  # How many attempts left
-    heartbeat = 4500  # Heartbeat delay, msecs
+    heartbeat = 45000  # Heartbeat delay, msecs
     reconnect = 4500  # Reconnect delay, msecs
 
     # Internal state
     expect_reply = False  # False only at start
 
-    timeout = 2500  # poller timeout
+    timeout = 25000  # poller timeout
     verbose = False  # Print activity to stdout
 
     # Return address, if any

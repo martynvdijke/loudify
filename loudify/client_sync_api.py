@@ -20,7 +20,7 @@ class Client:
     ctx = None
     client = None
     poller = None
-    timeout = 2500
+    timeout = 25000
     retries = 3
     verbose = False
 
@@ -65,9 +65,9 @@ class Client:
         if not isinstance(request, list):
             request = [request]
 
-        print(request)
-        print(type(request))
-        print(flowgraph_vars)
+        # print(request)
+        # print(type(request))
+        # print(flowgraph_vars)
         if flowgraph_vars is not None:
             request = [definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
         else:

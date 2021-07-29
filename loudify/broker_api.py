@@ -24,7 +24,7 @@ class Broker:
     # We'd normally pull these from config data
     INTERNAL_SERVICE_PREFIX = b"mmi."
     HEARTBEAT_LIVENESS = 3  # 3-5 is reasonable
-    HEARTBEAT_INTERVAL = 4500  # msecs
+    HEARTBEAT_INTERVAL = 45000  # msecs
     HEARTBEAT_EXPIRY = HEARTBEAT_INTERVAL * HEARTBEAT_LIVENESS
 
     # ---------------------------------------------------------------------
