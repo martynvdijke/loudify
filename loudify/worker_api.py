@@ -33,7 +33,7 @@ class Worker:
     # Internal state
     expect_reply = False  # False only at start
 
-    timeout = 25000  # poller timeout
+    timeout = 2500  # poller timeout
     verbose = False  # Print activity to stdout
 
     # Return address, if any

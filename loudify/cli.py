@@ -1,8 +1,16 @@
-"""CLi interface to connect to the broker."""
+"""CLI interface to connect to the broker."""
+
+import click
 
 from . import client_sync_api
 from . import parser
+from . import definitions
 
+@click.command()
+@click.option('--user_request',
+              type=click.Choice(definitions.internal_commands, case_sensitive=False))
+def get_choise(user_request):
+    print(user_request)
 
 def main(argv=None):
     """
@@ -19,10 +27,14 @@ def main(argv=None):
     verbose = False
     if args.loglevel == 10:
         verbose = True
-    print("Runing cli")
+    print("Runing cli interface")
     print(args.address, args.port)
 
     client = client_sync_api.Client("tcp://" + args.address + ":" + str(args.port), verbose)
+
+    value = get_choise()
+
+
 
     request = b"echo"
     reply = client.send(b"mmi.service", request)

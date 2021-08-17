@@ -12,6 +12,7 @@ requires=[
     "flit_core>=2.2.0",
     "coloredlogs",
     "setuptools_scm",
+    "click",
     "pyzmq"
 ]
 classifiers = [ "License :: OSI Approved :: MIT License",]
