@@ -26,25 +26,25 @@ def parse_args_worker(args):
         type=int,
         default=5555,
         help="Specify the tcp port to bind to [default=%(default)r]",
-        required=True
+        required=True,
     )
     parser.add_argument(
-        '-a',
-        '--address',
+        "-a",
+        "--address",
         dest="address",
         type=str,
         default="localhost",
         help="Specify the broker address to connect to[default=%(default)r]",
-        required=True
+        required=True,
     )
     parser.add_argument(
-        '-s',
-        '--service',
+        "-s",
+        "--service",
         dest="service",
         type=str,
         default="echo",
         help="Specify the service the worker provides to[default=%(default)r]",
-        required=True
+        required=True,
     )
     # set logging level
     parser.add_argument(
@@ -84,7 +84,7 @@ def parse_args_broker(args):
         type=int,
         default=5555,
         help="Specify the txp port to bind to [default=%(default)r]",
-        required=True
+        required=True,
     )
     # set logging level
     parser.add_argument(
@@ -124,25 +124,25 @@ def parse_args_client(args):
         type=int,
         default=5555,
         help="Specify the tcp port to bind to [default=%(default)r]",
-        required=True
+        required=True,
     )
     parser.add_argument(
-        '-a',
-        '--address',
+        "-a",
+        "--address",
         dest="address",
         type=str,
         default="localhost",
         help="Specify the broker address to connect to[default=%(default)r]",
-        required=True
+        required=True,
     )
     parser.add_argument(
-        '-m',
-        '--mode',
+        "-m",
+        "--mode",
         dest="mode",
         choices=("sync", "async"),
         default="sync",
         help="Specify the mode to use [default=%(default)r]",
-        required=True
+        required=True,
     )
     parser.add_argument(
         "-n",
@@ -150,7 +150,7 @@ def parse_args_client(args):
         dest="requests",
         type=int,
         default=2,
-        help="Specify the number of request to be made [default=%(default)r]"
+        help="Specify the number of request to be made [default=%(default)r]",
     )
     # set logging level
     parser.add_argument(
@@ -190,16 +190,16 @@ def parse_args_cli(args):
         type=int,
         default=5555,
         help="Specify the tcp port to bind to [default=%(default)r]",
-        required=True
+        required=True,
     )
     parser.add_argument(
-        '-a',
-        '--address',
+        "-a",
+        "--address",
         dest="address",
         type=str,
         default="localhost",
         help="Specify the broker address to connect to[default=%(default)r]",
-        required=True
+        required=True,
     )
     # set logging level
     parser.add_argument(

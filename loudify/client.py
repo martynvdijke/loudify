@@ -7,6 +7,7 @@ from . import parser
 
 _logger = logging.getLogger(__name__)
 
+
 def main(argv=None):
     """
     Main function for cli client.
@@ -33,7 +34,7 @@ def main(argv=None):
 
     if args.mode == "sync":
         for req in range(requests):
-            reply = client.send(b"echo",  request)
+            reply = client.send(b"echo", request)
             if reply:
                 _logger.debug("D: Got reply back from broker %s", reply[0])
             else:
@@ -41,7 +42,7 @@ def main(argv=None):
     else:
         for req in range(requests):
             try:
-                client.send(b"echo",  request)
+                client.send(b"echo", request)
             except KeyboardInterrupt:
                 print("send interrupted, aborting")
                 return

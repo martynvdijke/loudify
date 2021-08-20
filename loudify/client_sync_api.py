@@ -14,8 +14,9 @@ _logger = logging.getLogger(__name__)
 class Client:
     """Majordomo Protocol Client API Synchronous version.
 
-      Implements the MDP/Worker spec at http:#rfc.zeromq.org/spec:7.
+    Implements the MDP/Worker spec at http:#rfc.zeromq.org/spec:7.
     """
+
     broker = None
     ctx = None
     client = None
@@ -69,7 +70,9 @@ class Client:
         # print(type(request))
         # print(flowgraph_vars)
         if flowgraph_vars is not None:
-            request = [definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
+            request = (
+                [definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode("ascii")]
+            )
         else:
             request = [definitions.C_CLIENT, service] + request
 
@@ -102,7 +105,10 @@ class Client:
                 reply_service = msg.pop(0)
 
                 if service != reply_service:
-                    _logger.warning("E: worker  reply service not the same as internal service of worker %s", service)
+                    _logger.warning(
+                        "E: worker  reply service not the same as internal service of worker %s",
+                        service,
+                    )
 
                 reply = msg
                 break

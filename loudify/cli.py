@@ -6,11 +6,19 @@ from . import client_sync_api
 from . import parser
 from . import definitions
 
+
 @click.command()
-@click.option('--user_request',
-              type=click.Choice(definitions.internal_commands, case_sensitive=False))
+@click.option(
+    "--user_request", type=click.Choice(definitions.internal_commands, case_sensitive=False)
+)
 def get_choise(user_request):
+    """Get user input
+
+    Args:
+        user_request ([type]): [description]
+    """
     print(user_request)
+
 
 def main(argv=None):
     """
@@ -33,8 +41,7 @@ def main(argv=None):
     client = client_sync_api.Client("tcp://" + args.address + ":" + str(args.port), verbose)
 
     value = get_choise()
-
-
+    print(value)
 
     request = b"echo"
     reply = client.send(b"mmi.service", request)
@@ -45,5 +52,5 @@ def main(argv=None):
         print("E: no response from broker, make sure it's running")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

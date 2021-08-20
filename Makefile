@@ -38,12 +38,9 @@ requirements:	## Update requirements.txt
 tox:   ## Run tox
 	python -m tox
 
-create_service: ##Create service from docker image
-	docker service create --name loudify-worker martynvandijke/loudify-worker:dev
-
 build_image: ##Build docker image
-	docker build -t martynvandijke/loudify-worker:dev .
-	docker push martynvandijke/loudify-worker:dev
+	docker build -t martynvandijke/loudify-broker:dev .
+	docker push martynvandijke/loudify-broker:dev
 
 help: ## Show help message
 	@IFS=$$'\n' ; \

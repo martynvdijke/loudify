@@ -66,9 +66,13 @@ class Client:
         # Frame 1: "MDPCxy" (six bytes, MDP/Client x.y)
         # Frame 2: Service name (printable string)
         if flowgraph_vars:
-            request = [b'', definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode('ascii')]
+            request = (
+                [b"", definitions.C_CLIENT, service]
+                + request
+                + [str(flowgraph_vars).encode("ascii")]
+            )
         else:
-            request = [b'', definitions.C_CLIENT, service] + request
+            request = [b"", definitions.C_CLIENT, service] + request
 
         if self.verbose:
             _logger.info("I: send request to '%s' service: ", service)
@@ -92,7 +96,7 @@ class Client:
             if len(msg) < 4:
                 _logger.error("E: client msg is to short %s", len(msg))
             empty = msg.pop(0)
-            if empty != b'':
+            if empty != b"":
                 _logger.error("E: client empty msg is not empty %s", empty)
             header = msg.pop(0)
             if definitions.C_CLIENT != header:

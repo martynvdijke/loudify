@@ -20,7 +20,6 @@ internal_commands = [b"GET_WORKERS"]
 Rx_timeout = 5
 
 
-
 # Note, Python3 type "bytes" are essentially what Python2 "str" were,
 # but now we have to explicitly mark them as such.  Type "bytes" are
 # what PyZMQ expects by default.  Any user code that uses this and

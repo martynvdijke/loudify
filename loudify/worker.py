@@ -4,6 +4,7 @@ from . import worker_api
 from . import parser
 from . import zhelpers
 
+
 def main(argv=None):
     """
     Main function.
@@ -20,7 +21,9 @@ def main(argv=None):
     if args.loglevel == 10:
         verbose = True
 
-    worker = worker_api.Worker("tcp://"+args.address+":"+str(args.port), str(args.service).encode(), verbose)
+    worker = worker_api.Worker(
+        "tcp://" + args.address + ":" + str(args.port), str(args.service).encode(), verbose
+    )
     reply = None
     while True:
         request = worker.recv(reply)
@@ -29,6 +32,7 @@ def main(argv=None):
         reply = request  # Echo is complex... :-)
         if verbose:
             zhelpers.dump(reply)
+
 
 if __name__ == "__main__":
     main()

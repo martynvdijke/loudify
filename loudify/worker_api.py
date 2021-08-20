@@ -141,7 +141,7 @@ class Worker:
                     _logger.warning("E: msg length is invalid")
 
                 empty = msg.pop(0)
-                if empty != b'':
+                if empty != b"":
                     logging.error("E: invalid empty space in message")
 
                 header = msg.pop(0)
@@ -155,7 +155,7 @@ class Worker:
                     self.reply_to = msg.pop(0)
                     # pop empty
                     empty = msg.pop(0)
-                    if empty != b'':
+                    if empty != b"":
                         _logger.warning("E: empty space in msg is not empty, invalid msg")
                     return msg  # We have a request to process
                 elif command == definitions.W_HEARTBEAT:

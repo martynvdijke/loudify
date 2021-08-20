@@ -80,7 +80,7 @@ class Broker:
                 # get the data from the packet
                 sender = msg.pop(0)
                 empty = msg.pop(0)
-                if empty != b'':
+                if empty != b"":
                     _logger.error("E: invalid empty space in message")
 
                 header = msg.pop(0)
