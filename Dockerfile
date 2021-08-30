@@ -5,8 +5,8 @@ RUN pip install --no-cache-dir loudify
 
 
 # tell the port number the container should expose
-EXPOSE 5000
+EXPOSE 5555
 
 # run the command
-# CMD ["python", "./app.py"]
+CMD ["loudify-broker -p 5555 -vv"]
 # CMD . /opt/venv/bin/activate && exec python myapp.py

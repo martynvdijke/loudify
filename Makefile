@@ -32,6 +32,14 @@ push:  ## Push code with tags
 test:  ## Run tests
 	python -m pytest -ra
 
+launch_stack:
+	ADMIN_USER=admin \
+	ADMIN_PASSWORD=admin \
+	SLACK_URL=https://hooks.slack.com/services/TOKEN \
+	SLACK_CHANNEL=devops-alerts \
+	SLACK_USER=alertmanager \
+	docker stack deploy -c docker-compose.yml mon
+
 requirements:	## Update requirements.txt
 	python -m pip freeze > requirements.txt
 
