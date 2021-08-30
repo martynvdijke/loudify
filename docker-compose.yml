@@ -86,40 +86,40 @@ services:
         reservations:
           memory: 64M
 
-  alertmanager:
-    image: stefanprodan/swarmprom-alertmanager:v0.14.0
-    networks:
-      - net
-    environment:
-      - SLACK_URL=${SLACK_URL:-https://hooks.slack.com/services/TOKEN}
-      - SLACK_CHANNEL=${SLACK_CHANNEL:-general}
-      - SLACK_USER=${SLACK_USER:-alertmanager}
-    command:
-      - '--config.file=/etc/alertmanager/alertmanager.yml'
-      - '--storage.path=/alertmanager'
-    volumes:
-      - alertmanager:/alertmanager
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
-      resources:
-        limits:
-          memory: 128M
-        reservations:
-          memory: 64M
+  # alertmanager:
+  #   image: stefanprodan/swarmprom-alertmanager:v0.14.0
+  #   networks:
+  #     - net
+  #   environment:
+  #     - SLACK_URL=${SLACK_URL:-https://hooks.slack.com/services/TOKEN}
+  #     - SLACK_CHANNEL=${SLACK_CHANNEL:-general}
+  #     - SLACK_USER=${SLACK_USER:-alertmanager}
+  #   command:
+  #     - '--config.file=/etc/alertmanager/alertmanager.yml'
+  #     - '--storage.path=/alertmanager'
+  #   volumes:
+  #     - alertmanager:/alertmanager
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
+  #     placement:
+  #       constraints:
+  #         - node.role == manager
+  #     resources:
+  #       limits:
+  #         memory: 128M
+  #       reservations:
+  #         memory: 64M
 
-  unsee:
-    image: cloudflare/unsee:v0.8.0
-    networks:
-      - net
-    environment:
-      - "ALERTMANAGER_URIS=default:http://alertmanager:9093"
-    deploy:
-      mode: replicated
-      replicas: 1
+  # unsee:
+  #   image: cloudflare/unsee:v0.8.0
+  #   networks:
+  #     - net
+  #   environment:
+  #     - "ALERTMANAGER_URIS=default:http://alertmanager:9093"
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
 
   node-exporter:
     image: stefanprodan/swarmprom-node-exporter:v0.16.0
@@ -209,9 +209,8 @@ services:
     image: martynvandijke/loudify-broker:dev
     # ports:
     #   - "5555:5555"
-    # networks:
-    #   - net
-    # command: loudify-broker -p 5555 -vv
+    networks:
+      - net
     deploy:
       mode: replicated
       replicas: 1
@@ -220,14 +219,14 @@ services:
     image: martynvandijke/loudify-worker:dev
     # ports:
     #   - "5555:5555"
-    # networks:
-    #   - net
+    networks:
+      - net
     # command: loudify-worker -p 5555 -vv
     depends_on:
       - loudify-broker
     deploy:
       mode: replicated
       replicas: 5
-      endpoint_mode: vip
+      # endpoint_mode: vip
       # placement:
       #   max_replicas_per_node: 1

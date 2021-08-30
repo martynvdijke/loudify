@@ -1,7 +1,8 @@
 global:
   scrape_interval:     15s
   evaluation_interval: 15s
-
+  tls_config:
+        insecure_skip_verify: true
   external_labels:
     monitor: 'promswarm'
 
@@ -9,11 +10,11 @@ rule_files:
   - "swarm_node.rules.yml"
   - "swarm_task.rules.yml"
 
-alerting:
-  alertmanagers:
-  - static_configs:
-    - targets:
-      - alertmanager:9093
+# alerting:
+#   alertmanagers:
+#   - static_configs:
+#     - targets:
+#       - alertmanager:9093
 
 scrape_configs:
   - job_name: 'prometheus'
