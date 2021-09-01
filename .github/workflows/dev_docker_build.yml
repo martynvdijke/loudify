@@ -1,4 +1,4 @@
-name: dev build status
+name: dev build docker status
 
 on:
   push:
