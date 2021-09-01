@@ -4,6 +4,7 @@ networks:
   net:
     driver: overlay
     attachable: true
+    # external: true
 
 volumes:
     prometheus: {}
@@ -207,8 +208,10 @@ services:
 
   loudify-broker:
     image: martynvandijke/loudify-broker:dev
-    # ports:
-    #   - "5555:5555"
+    ports:
+      - "5555:5555"
+    environment:
+      LISTEN: tcp://0.0.0.0:5555
     networks:
       - net
     deploy:
@@ -217,10 +220,10 @@ services:
 
   loudify-worker:
     image: martynvandijke/loudify-worker:dev
-    # ports:
-    #   - "5555:5555"
     networks:
       - net
+    environment:
+      CONNECT: tcp://loudify-broker:5555
     # command: loudify-worker -p 5555 -vv
     depends_on:
       - loudify-broker

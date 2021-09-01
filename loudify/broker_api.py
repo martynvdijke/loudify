@@ -23,8 +23,8 @@ class Broker:
 
     # We'd normally pull these from config data
     INTERNAL_SERVICE_PREFIX = b"mmi."
-    HEARTBEAT_LIVENESS = 3  # 3-5 is reasonable
-    HEARTBEAT_INTERVAL = 45000  # msecs
+    HEARTBEAT_LIVENESS = 5  # 3-5 is reasonable
+    HEARTBEAT_INTERVAL = 2500  # msecs
     HEARTBEAT_EXPIRY = HEARTBEAT_INTERVAL * HEARTBEAT_LIVENESS
 
     # ---------------------------------------------------------------------
@@ -59,6 +59,11 @@ class Broker:
         self.socket.linger = 0
         self.poller = zmq.Poller()
         self.poller.register(self.socket, zmq.POLLIN)
+        self.packets_client_in = 0
+        self.packets_client_out = 0
+        self.packets_workers_in = 0
+        self.packets_workers_out = 0
+        self.packets_processed = 0
 
     # ---------------------------------------------------------------------
 
@@ -116,6 +121,8 @@ class Broker:
         service = msg.pop(0)
         # Set reply return address to client sender
         msg = [sender, b""] + msg
+        # if self.verbose:
+        #     self.packets_clients_in += 1
         if service.startswith(self.INTERNAL_SERVICE_PREFIX):
             self.service_internal(service, msg)
         else:
@@ -132,8 +139,11 @@ class Broker:
 
         if len(msg) < 1:
             _logger.error("E: msg length is <1, invalid msg.")
+        # if self.verbose:
+        #     self.packets_workers_in += 1
 
         command = msg.pop(0)
+        # print(command)
         worker_ready = hexlify(sender) in self.workers
         worker = self.require_worker(sender)
 
