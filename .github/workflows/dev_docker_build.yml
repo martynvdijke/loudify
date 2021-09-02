@@ -18,17 +18,11 @@ jobs:
     runs-on: loudify_runner
 
     steps:
-      - uses: actions/checkout@v2
+      - name : "Checkout commit"
+        uses: actions/checkout@v2
         with:
           ref: dev
 
-      - name: TEst
-        # Use a bash shell so we can use the same syntax for environment variable
-        # access regardless of the host operating system
-        shell: bash
-        working-directory: ${{runner.workspace}}
-
-        run: pwd
 
       - name: Generate Docker image loudify-broker
         # Use a bash shell so we can use the same syntax for environment variable
@@ -36,5 +30,5 @@ jobs:
         shell: bash
         working-directory: ${{runner.workspace}}/loudify
 
-        run: make build_image
+        run: sudo make build_image
 
