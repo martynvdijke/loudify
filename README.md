@@ -11,6 +11,7 @@
 [![GitHub license](https://img.shields.io/github/license/martynvdijke/loudify-worker)](https://github.com/martynvdijke/loudify/blob/dev/LICENSE)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Downloads](https://static.pepy.tech/personalized-badge/loudify?period=total&units=international_system&left_color=black&right_color=grey&left_text=Downloads)](https://pepy.tech/project/loudify)
+[![docker build status](https://github.com/martynvdijke/loudify/actions/workflows/dev_docker_build.yml/badge.svg)](https://github.com/martynvdijke/loudify/actions/workflows/dev_docker_build.yml)
 
 <br />
 <p align="center">

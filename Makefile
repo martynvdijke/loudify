@@ -20,7 +20,7 @@ lint:  ## Lint and static-check
 	python -m flake8 loudify
 	python -m pylint loudify
 	python -m mypy loudify
-
+\
 publish:  ## Publish to PyPi
 	flit publish
 
