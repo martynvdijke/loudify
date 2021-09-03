@@ -1,6 +1,6 @@
 # Usage
 
-To use loudify we consider you have acces to three compputers, lets call them A for client (the computer transmitting the network packets), b the network Broker and C the worker computer.
+To use loudify we consider you have access to three computers, lets call them A for client (the computer transmitting the network packets), b the network Broker and C the worker computer.
 To start you will need loudify installed on all three computers.
 
 ## Broker
@@ -13,9 +13,11 @@ loudify-broker -p 5555
 
 ## Client
 
-While you can start the client as in the cli, its is best to start it using a GNU Radio, 
+While you can start the client as in the cli, its is best to start it using a GNU Radio,
 an example flowgraph is given below.
-![image](pictures/client_flwograph.png)
+
+![image](pictures/client_flowgraph.png)
+
 Where in the `frame_sender` block in the flowgraph the information of the broker ip/dns address, port and modus needs to be filled in. The address and the port are needed for connecting to the broker. The modus specifies the synchronous or asynchronous mode the client uses for its communication.
 
 ## Worker
