@@ -1,23 +1,23 @@
 """CLI interface to connect to the broker."""
 
-import click
+# import click
 
 from . import client_sync_api
 from . import parser
 from . import definitions
 
 
-@click.command()
-@click.option(
-    "--user_request", type=click.Choice(definitions.internal_commands, case_sensitive=False)
-)
-def get_choise(user_request):
-    """Get user input
+# @click.command()
+# @click.option(
+#     "--user_request", type=click.Choice(definitions.internal_commands, case_sensitive=False)
+# )
+# def get_choise(user_request):
+#     """Get user input
 
-    Args:
-        user_request ([type]): [description]
-    """
-    print(user_request)
+#     Args:
+#         user_request ([type]): [description]
+#     """
+#     print(user_request)
 
 
 def main(argv=None):
