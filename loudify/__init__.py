@@ -1,7 +1,7 @@
 """Initialisation module for loudify broker."""
 import logging
 
-from setuptools_scm import get_version
+# from setuptools_scm import get_version
 
 from . import broker
 from . import parser
@@ -12,11 +12,12 @@ from . import cli
 __author__ = "Martyn van Dijke"
 __copyright__ = "Martyn van Dijke"
 __license__ = "MIT"
-try:
-    __version__ = get_version(version_scheme="post-release", local_scheme="no-local-version")
-except LookupError:
-    __version__ = "0.0"
+# try:
+#     __version__ = get_version(version_scheme="post-release", local_scheme="no-local-version")
+# except LookupError:
+#     __version__ = "0.0"
 
+__version__ = "0.0"
 _logger = logging.getLogger(__name__)
 
 

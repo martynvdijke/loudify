@@ -16,7 +16,7 @@ W_ERROR = b"\006"
 commands = [None, b"READY", b"REQUEST", b"REPLY", b"HEARTBEAT", b"DISCONNECT"]
 
 internal_commands = [b"GET_WORKERS"]
-TIMEOUT = 5
+TIMEOUT = 2
 
 
 # Note, Python3 type "bytes" are essentially what Python2 "str" were,
