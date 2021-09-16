@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY bin/broker.py .
 
 # run the command
-CMD [ "python", "./broker.py", "-p 5555", "-vv" ]
+CMD [ "python", "./broker.py", "-p 5555" ]
 
 # tell the port number the container should expose
 EXPOSE 5555
