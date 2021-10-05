@@ -3,6 +3,7 @@
 > Running a GNU Radio flowgraph in a ZMQ client <-> broker <-> worker setup.
 
 <!-- ![dev build status](https://github.com/martynvdijke/gr-lora_sdr/workflows/dev%20build%20status/badge.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad9f936d2d674635b927fd83e57abec1)](https://app.codacy.com/gh/martynvdijke/loudify?utm_source=github.com&utm_medium=referral&utm_content=martynvdijke/loudify&utm_campaign=Badge_Grade_Settings)
 [![docs-dev](https://github.com/martynvdijke/gr-lora_sdr/workflows/docs-dev/badge.svg)](https://martynvdijke.github.io/gr-lora_sdr/html/index.html)
 ![dev test status](https://github.com/martynvdijke/gr-lora_sdr/workflows/dev%20test%20status/badge.svg) -->
 [![Documentation Status](https://readthedocs.org/projects/loudify/badge/?version=latest)](https://loudify.readthedocs.io/en/latest/?badge=latest)
