@@ -66,9 +66,6 @@ class Client:
         if not isinstance(request, list):
             request = [request]
 
-        # print(request)
-        # print(type(request))
-        # print(flowgraph_vars)
         if flowgraph_vars is not None:
             request = (
                 [definitions.C_CLIENT, service] + request + [str(flowgraph_vars).encode("ascii")]

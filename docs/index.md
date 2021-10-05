@@ -25,14 +25,15 @@ The project consists of three distinct parts mainly:
 - [Client](client.md)
 - [Broker](broker.md)
 - [Worker](worker.md)
+  
 In short the purpose of the client is to transfer a network frame trough ZMQ to the broker, the broker is the central controlling point of the entire system and makes it possible for dynamic discovery of both clients and workers. The broker forwards the received network packet by the client to one of the workers that are connected to the broker (by use of TCP) receives the network packet, operates on the network packet and sends back an ACK to the original client requesting the network packet.
 
 To be able to control and query the broker there is also a cli interface for getting system level information which can be found by going to [cli](cli.md).
 
 ### Why?
 
-This project together with the GNU Radio code located in [gr-lora_sdr](https://github.com/martynvdijke/gr-lora_sdr) is part of my graduation project which is called a Centralized Radio Acces Network gateway for LoRa.
-Its purpose is to research if it is possible to be able to aggregate LoRa packets originating from different LoRa gateways by making a central point (aka the broker) that all gateways can connect to. The overall high level idea is to let LoRa gateways share information on the reception of their signals.
+This project together with the GNU Radio code located in [gr-lora_sdr](https://github.com/martynvdijke/gr-lora_sdr) is part of an experimental graduation project at the university of Eindhoven which is called a Centralized Radio Acces Network gateway for LoRa.
+The purpose is to research if it is possible to be able to aggregate LoRa packets originating from different LoRa gateways by making a central point (aka the broker) that all gateways can connect to. The overall high level idea is to let LoRa gateways share signal information dynamic and real time by using a central routing point.
 
 ## Installing
 
@@ -56,5 +57,6 @@ git clone https://github.com/martynvdijke/loudify
 cd loudify
 flit install
 ```
+
 
 ## [Changelog](changelog.md)

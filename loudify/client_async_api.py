@@ -21,7 +21,7 @@ class Client:
     ctx = None
     client = None
     poller = None
-    timeout = 2500
+    timeout = 25000
     verbose = False
 
     def __init__(self, broker, verbose=False):

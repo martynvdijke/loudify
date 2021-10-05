@@ -27,8 +27,8 @@ class Worker:
     worker = None  # Socket to broker
     heartbeat_at = 0  # When to send HEARTBEAT (relative to time.time(), so in seconds)
     liveness = 0  # How many attempts left
-    heartbeat = 45000  # Heartbeat delay, msecs
-    reconnect = 4500  # Reconnect delay, msecs
+    heartbeat = 2500  # Heartbeat delay, msecs
+    reconnect = 2500  # Reconnect delay, msecs
 
     # Internal state
     expect_reply = False  # False only at start
@@ -128,6 +128,8 @@ class Worker:
             try:
                 items = self.poller.poll(self.timeout)
             except KeyboardInterrupt:
+                exit(0)
+                _logger.warning("W: interrupt received, killing worker...")
                 break  # Interrupted
             if items:
                 msg = self.worker.recv_multipart()
@@ -183,7 +185,7 @@ class Worker:
                 self.send_to_broker(definitions.W_HEARTBEAT)
                 self.heartbeat_at = time.time() + 1e-3 * self.heartbeat
 
-        _logger.warning("W: interrupt received, killing worker...")
+        
         return None
 
     def destroy(self):

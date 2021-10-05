@@ -1,4 +1,7 @@
 coloredlogs==15.0.1
+flit-core==3.3.0
 humanfriendly==9.2
+loudify==0.0.post31
 pyzmq==22.1.0
 setuptools-scm==6.0.1
+toml==0.10.2

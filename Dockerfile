@@ -2,11 +2,11 @@ FROM python:latest
 
 RUN pip install --no-cache-dir loudify
 
-
-
-# tell the port number the container should expose
-EXPOSE 5000
+WORKDIR /usr/src/app
+COPY bin/broker.py .
 
 # run the command
-# CMD ["python", "./app.py"]
-# CMD . /opt/venv/bin/activate && exec python myapp.py
+CMD [ "python", "./broker.py", "-p 5555" ]
+
+# tell the port number the container should expose
+EXPOSE 5555

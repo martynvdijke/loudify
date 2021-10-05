@@ -10,21 +10,19 @@ venv: ## Makes new virtual venv and loads all dependencies
 
 coverage:  ## Run tests with coverage
 	python -m coverage erase
-	python -m coverage run --include=gr_lora_sdr_profiler/* -m pytest -ra
+	python -m coverage run --include=loudify/* -m pytest -ra
 	python -m coverage report -m
 
 deps:  ## Install dependencies
-	python -m pip install --upgrade pip
-	python -m pip install black coverage flake8 flit mccabe mypy pylint pytest tox pyzmq
-	python -m pip freeze > requirements.txt
+	pip install -r requirements.txt
 
 lint:  ## Lint and static-check
-	python -m flake8 gr_lora_sdr_profiler
-	python -m pylint gr_lora_sdr_profiler
-	python -m mypy gr_lora_sdr_profiler
-
+	python -m flake8 loudify
+	python -m pylint loudify
+	python -m mypy loudify
+\
 publish:  ## Publish to PyPi
-	python -m flit publish
+	flit publish
 
 push:  ## Push code with tags
 	git push && git push --tags
@@ -32,11 +30,19 @@ push:  ## Push code with tags
 test:  ## Run tests
 	python -m pytest -ra
 
+launch_stack:
+	ADMIN_USER=admin \
+	ADMIN_PASSWORD=admin \
+	SLACK_URL=https://hooks.slack.com/services/TOKEN \
+	SLACK_CHANNEL=devops-alerts \
+	SLACK_USER=alertmanager \
+	docker stack deploy -c docker-compose.yml mon
+
 requirements:	## Update requirements.txt
 	python -m pip freeze > requirements.txt
 
 tox:   ## Run tox
-	python -m tox
+	tox
 
 build_image: ##Build docker image
 	docker build -t martynvandijke/loudify-broker:dev .
